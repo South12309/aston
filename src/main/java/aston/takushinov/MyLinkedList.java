@@ -21,8 +21,11 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public boolean addAll(MyList<? extends T> element) {
-        return false;
+    public boolean addAll(MyList<? extends T> list) {
+        for (int i = 0; i < list.size(); i++) {
+            add(list.get(i));
+        }
+        return true;
     }
 
     @Override
@@ -31,8 +34,13 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public boolean remove(T element) {
+    public boolean remove(int elementId) {
         return false;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 
     private static class Node<T> {
