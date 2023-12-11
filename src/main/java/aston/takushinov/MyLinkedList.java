@@ -10,6 +10,7 @@ public class MyLinkedList<T> implements MyList<T> {
     public boolean add(T element) {
         if (firstNode==null) {
             firstNode = new Node(null, element, null);
+            lastNode = firstNode;
             size++;
             return true;
         } else {
@@ -30,7 +31,10 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public T get(int elementId) {
-        return getNode(elementId).item;
+        Node<T> node = getNode(elementId);
+        if (node==null)
+            return null;
+        return node.item;
     }
 
     private Node<T> getNode(int elementId) {
@@ -56,6 +60,7 @@ public class MyLinkedList<T> implements MyList<T> {
         Node<T> nodeForRemove = getNode(elementId);
         nodeForRemove.prev.next = nodeForRemove.next;
         nodeForRemove.next.prev=nodeForRemove.prev;
+        size--;
         return true;
     }
 
