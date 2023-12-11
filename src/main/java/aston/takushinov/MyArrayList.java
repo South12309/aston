@@ -7,10 +7,12 @@ public class MyArrayList<T> implements MyList<T>{
 
     public MyArrayList() {
         this.capacity = 10;
+        elements = (T[]) new Object[capacity];
     }
 
     public MyArrayList(int capacity) {
         this.capacity = capacity;
+        elements = (T[]) new Object[capacity];
     }
 
     @Override
