@@ -1,25 +1,25 @@
 package aston.takushinov;
 
-public class MyArrayList<T> implements MyList<T>{
+public class MyArrayList<T extends Comparable<T>> implements MyList<T>{
     private int capacity;
     private T[] elements;
     private int size;
 
     public MyArrayList() {
         this.capacity = 10;
-        elements = (T[]) new Object[capacity];
+        elements = (T[]) new Comparable[capacity];
     }
 
     public MyArrayList(int capacity) {
         this.capacity = capacity;
-        elements = (T[]) new Object[capacity];
+        elements = (T[]) new Comparable[capacity];
     }
 
     @Override
     public boolean add(T element) {
         if (size>= elements.length) {
            int newSize = size * 2;
-            T[] newElements = (T[]) new Object[newSize];
+            T[] newElements = (T[]) new Comparable[newSize];
             for (int i = 0; i <elements.length; i++) {
                 newElements[i] = elements[i];
             }
@@ -58,5 +58,24 @@ public class MyArrayList<T> implements MyList<T>{
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public void sort() {
+        int i = size;
+        boolean flag = false;
+        while (!flag) {
+            i--;
+            flag=true;
+            for (int j = 0; j < i; j++) {
+                if (elements[j].compareTo(elements[j+1])>0) {
+                    T temp = elements[j];
+                    elements[j] = elements[j+1];
+                    elements[j+1] = temp;
+                    flag = false;
+                }
+            }
+        }
+
     }
 }
