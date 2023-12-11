@@ -1,6 +1,7 @@
 package aston.takushinov;
 
-import java.util.List;
+
+
 
 public class Main {
     public static void main(String[] args) {
@@ -16,13 +17,15 @@ public class Main {
 //        for (int i = 0; i < myList2.size(); i++) {
 //            System.out.println(myList2.get(i));
 //        }
+
         myList.add(10);
         myList.add(8);
         myList.add(1);
         myList.add(15);
         myList.add(3);
         myList.add(5);
-        myList.sort();
+//        myList.sort();
+        MyLinkedList.sort(myList);
         for (int i = 0; i < myList.size(); i++) {
             System.out.println(myList.get(i));
         }

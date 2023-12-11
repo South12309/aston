@@ -1,14 +1,25 @@
 package aston.takushinov;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
     private Node<T> firstNode;
     private Node<T> lastNode;
     private int size;
+
+    public MyLinkedList() {
+    }
+
+    public MyLinkedList(Collection<? extends T> collection) {
+        for (T t : collection) {
+            add(t);
+        }
+    }
+
     @Override
     public boolean add(T element) {
-        if (firstNode==null) {
+        if (firstNode == null) {
             firstNode = new Node(null, element, null);
             lastNode = firstNode;
             size++;
@@ -32,24 +43,45 @@ public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
     @Override
     public T get(int elementId) {
         Node<T> node = getNode(elementId);
-        if (node==null)
+        if (node == null)
             return null;
         return node.item;
     }
 
+    @Override
+    public boolean set(int elementId, T element) {
+        Node<T> node = getNode(elementId);
+        if (node == null)
+            return false;
+        Node<T> prevNode = node.prev;
+        Node<T> nextNode = node.next;
+        Node newNode = new Node(prevNode, element, nextNode);
+        if (prevNode != null) {
+            prevNode.next = newNode;
+        } else {
+            firstNode = newNode;
+        }
+        if (nextNode != null) {
+            nextNode.prev = newNode;
+        } else {
+            lastNode = newNode;
+        }
+        return true;
+    }
+
     private Node<T> getNode(int elementId) {
-        if (elementId >=size)
+        if (elementId >= size)
             return null;
         if (elementId == 0) {
             return firstNode;
         }
-        if (elementId == size-1)
+        if (elementId == size - 1)
             return lastNode;
 
         int i = 0;
-        Node<T> currentNode=firstNode;
-        while (!(i== elementId)) {
-            currentNode=currentNode.next;
+        Node<T> currentNode = firstNode;
+        while (!(i == elementId)) {
+            currentNode = currentNode.next;
             i++;
         }
         return currentNode;
@@ -59,7 +91,7 @@ public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
     public boolean remove(int elementId) {
         Node<T> nodeForRemove = getNode(elementId);
         nodeForRemove.prev.next = nodeForRemove.next;
-        nodeForRemove.next.prev=nodeForRemove.prev;
+        nodeForRemove.next.prev = nodeForRemove.prev;
         size--;
         return true;
     }
@@ -77,19 +109,20 @@ public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
         Node<T> nextNode;
         Node<T> nextNextNode;
         Node<T> prevNode;
+        //TODO need to realize using new method set()
         while (!flag) {
             currNode = firstNode;
             i--;
-            flag=true;
+            flag = true;
             for (int j = 0; j < i; j++) {
-                if (currNode.next==null) {
+                if (currNode.next == null) {
                     lastNode = currNode;
                     break;
                 }
-                if (currNode.item.compareTo(currNode.next.item)>0) {
+                if (currNode.item.compareTo(currNode.next.item) > 0) {
                     nextNode = currNode.next;
                     nextNextNode = nextNode.next;
-                    if (currNode!=firstNode) {
+                    if (currNode != firstNode) {
                         prevNode = currNode.prev;
                         prevNode.next = nextNode;
                     } else {
@@ -100,7 +133,7 @@ public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
                     nextNode.next = currNode;
                     currNode.prev = nextNode;
                     currNode.next = nextNextNode;
-                    if (nextNextNode!=null) {
+                    if (nextNextNode != null) {
                         nextNextNode.prev = currNode;
                     } else {
                         lastNode = currNode;
@@ -111,6 +144,24 @@ public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
                 }
             }
         }
+    }
+
+    public static <T extends Comparable<? super T>> void sort(MyList<T> list) {
+        int i = list.size();
+        boolean flag = false;
+        while (!flag) {
+            i--;
+            flag = true;
+            for (int j = 0; j < i; j++) {
+                if (list.get(j).compareTo(list.get(j + 1)) > 0) {
+                    T temp = list.get(j);
+                    list.set(j, list.get(j + 1));
+                    list.set(j + 1, temp);
+                    flag = false;
+                }
+            }
+        }
+
     }
 
     private static class Node<T> {
