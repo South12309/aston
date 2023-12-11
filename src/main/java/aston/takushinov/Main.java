@@ -22,7 +22,8 @@ public class Main {
         myArrayList.add(15);
         myArrayList.add(3);
         myArrayList.add(5);
-        myArrayList.sort();
+      //  myArrayList.sort();
+        MyArrayList.sort(myArrayList);
         for (int i = 0; i < myArrayList.size(); i++) {
             System.out.println(myArrayList.get(i));
         }
