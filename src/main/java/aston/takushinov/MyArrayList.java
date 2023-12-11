@@ -28,8 +28,11 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public boolean addAll(MyList<? extends T> element) {
-        return false;
+    public boolean addAll(MyList<? extends T> list) {
+        for (int i = 0; i < list.size(); i++) {
+            add(list.get(i));
+        }
+        return true;
     }
 
     @Override
@@ -40,7 +43,18 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public boolean remove(T element) {
-        return false;
+    public boolean remove(int elementId) {
+        if (elementId>=size) {
+            return false;
+        }
+        for (int i = elementId; i < size-1; i++) {
+            elements[i] = elements[i+1];
+        }
+        return true;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 }
