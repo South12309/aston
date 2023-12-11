@@ -30,26 +30,33 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public T get(int elementId) {
-        if (elementId>=size)
+        return getNode(elementId).item;
+    }
+
+    private Node<T> getNode(int elementId) {
+        if (elementId >=size)
             return null;
         if (elementId == 0) {
-            return firstNode.item;
+            return firstNode;
         }
         if (elementId == size-1)
-            return lastNode.item;
+            return lastNode;
 
         int i = 0;
         Node<T> currentNode=firstNode;
-        while (!(i==elementId)) {
+        while (!(i== elementId)) {
             currentNode=currentNode.next;
             i++;
         }
-        return currentNode.item;
+        return currentNode;
     }
 
     @Override
     public boolean remove(int elementId) {
-        return false;
+        Node<T> nodeForRemove = getNode(elementId);
+        nodeForRemove.prev.next = nodeForRemove.next;
+        nodeForRemove.next.prev=nodeForRemove.prev;
+        return true;
     }
 
     @Override
