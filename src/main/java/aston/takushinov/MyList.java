@@ -6,4 +6,5 @@ public interface MyList<T> {
     T get(int i);
     boolean remove(int elementId);
     int size();
+    void sort();
 }

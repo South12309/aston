@@ -2,7 +2,7 @@ package aston.takushinov;
 
 import java.util.LinkedList;
 
-public class MyLinkedList<T> implements MyList<T> {
+public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
     private Node<T> firstNode;
     private Node<T> lastNode;
     private int size;
@@ -67,6 +67,50 @@ public class MyLinkedList<T> implements MyList<T> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public void sort() {
+        int i = size;
+        boolean flag = false;
+        Node<T> currNode;
+        Node<T> nextNode;
+        Node<T> nextNextNode;
+        Node<T> prevNode;
+        while (!flag) {
+            currNode = firstNode;
+            i--;
+            flag=true;
+            for (int j = 0; j < i; j++) {
+                if (currNode.next==null) {
+                    lastNode = currNode;
+                    break;
+                }
+                if (currNode.item.compareTo(currNode.next.item)>0) {
+                    nextNode = currNode.next;
+                    nextNextNode = nextNode.next;
+                    if (currNode!=firstNode) {
+                        prevNode = currNode.prev;
+                        prevNode.next = nextNode;
+                    } else {
+                        prevNode = null;
+                        firstNode = nextNode;
+                    }
+                    nextNode.prev = prevNode;
+                    nextNode.next = currNode;
+                    currNode.prev = nextNode;
+                    currNode.next = nextNextNode;
+                    if (nextNextNode!=null) {
+                        nextNextNode.prev = currNode;
+                    } else {
+                        lastNode = currNode;
+                    }
+                    flag = false;
+                } else {
+                    currNode = currNode.next;
+                }
+            }
+        }
     }
 
     private static class Node<T> {
