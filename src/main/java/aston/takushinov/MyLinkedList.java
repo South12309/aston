@@ -29,8 +29,22 @@ public class MyLinkedList<T> implements MyList<T> {
     }
 
     @Override
-    public T get(int i) {
-        return null;
+    public T get(int elementId) {
+        if (elementId>=size)
+            return null;
+        if (elementId == 0) {
+            return firstNode.item;
+        }
+        if (elementId == size-1)
+            return lastNode.item;
+
+        int i = 0;
+        Node<T> currentNode=firstNode;
+        while (!(i==elementId)) {
+            currentNode=currentNode.next;
+            i++;
+        }
+        return currentNode.item;
     }
 
     @Override
