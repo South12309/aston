@@ -1,4 +1,4 @@
-package aston.takushinov;
+package aston.takushinov.lists;
 
 import java.util.Collection;
 
