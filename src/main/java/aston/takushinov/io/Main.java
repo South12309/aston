@@ -44,7 +44,17 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-
+        //3. Задан файл с текстом. В каждой строке найти и вывести наибольшее число цифр, идущих подряд.
+        Pattern regPatternForFindNumbers = Pattern.compile("\\d+", Pattern.UNICODE_CHARACTER_CLASS);
+        try(Stream<String> lines = Files.lines(path);) {
+            lines
+                    .map(x->regPatternForFindNumbers.matcher(x).results().map(MatchResult::group).map(Integer::valueOf).max(Integer::compare))
+                    .filter(x-> x.isPresent())
+                    .map(x->x.get())
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
