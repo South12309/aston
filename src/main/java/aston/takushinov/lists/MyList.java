@@ -1,4 +1,4 @@
-package aston.takushinov;
+package aston.takushinov.lists;
 
 public interface MyList<T> {
     boolean add(T element );

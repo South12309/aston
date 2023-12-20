@@ -1,7 +1,6 @@
-package aston.takushinov;
+package aston.takushinov.lists;
 
 import java.util.Collection;
-import java.util.LinkedList;
 
 public class MyLinkedList<T extends Comparable<T>> implements MyList<T> {
     private Node<T> firstNode;
