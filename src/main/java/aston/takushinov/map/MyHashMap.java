@@ -88,6 +88,30 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V remove(Object key) {
+        if (containsKey(key)) {
+            int ind = hash((K) key);
+            Node node = (Node) table[ind];
+            if (node.key.equals(key)) {
+                size--;
+                if (node.next == null) {
+                    table[ind] = null;
+                    return node.value;
+                } else {
+                    table[ind] = node.next;
+                    return node.value;
+                }
+            } else {
+                Node nextNode = node.next;
+                while (nextNode.next != null) {
+                    if (nextNode.key.equals(key)) {
+                        node.next = nextNode.next;
+                        size--;
+                        return nextNode.value;
+                    }
+                }
+            }
+
+        }
         return null;
     }
 
