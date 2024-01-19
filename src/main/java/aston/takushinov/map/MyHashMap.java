@@ -8,7 +8,7 @@ import java.util.Set;
 public class MyHashMap<K, V> implements Map<K, V> {
     private int M = 97;
     private int size = 0;
-    private Object[] st = new Object[M];
+    private Object[] table = new Object[M];
 
     private class Node {
         K key;
@@ -24,32 +24,66 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size==0;
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        return table[hash((K)key)]!=null;
     }
 
     @Override
     public boolean containsValue(Object value) {
+        for (int i = 0; i < size - 1; i++) {
+            Node node = (Node)table[i];
+            while (node.next!=null) {
+                if (node.value.equals(value)) {
+                    return true;
+                }
+                node=node.next;
+            }
+        }
         return false;
     }
 
     @Override
     public V get(Object key) {
-        return null;
+        return getFindedOrLastNode(key).value;
     }
 
     @Override
     public V put(K key, V value) {
-        return null;
+        if (containsKey(key)) {
+            Node node = getFindedOrLastNode(key);
+            if (node.key.equals(key)) {
+                node.value = value;
+            } else {
+                node.next = new Node(key,value, null);
+                size++;
+            }
+
+        } else {
+            table[hash(key)] = new Node(key,value, null);
+            size++;
+        }
+        return value;
+    }
+
+
+    private Node getFindedOrLastNode(Object key) {
+        Node node = (Node)table[hash((K)key)];
+        while (node.next!=null) {
+            if (node.key.equals(key)) {
+               return node;
+            }
+            node=node.next;
+        }
+        return node;
     }
 
     @Override
@@ -81,4 +115,6 @@ public class MyHashMap<K, V> implements Map<K, V> {
     public Set<Entry<K, V>> entrySet() {
         return null;
     }
+
+    private int hash(K key) { return (key.hashCode() & 0x7fffffff) % M; }
 }
