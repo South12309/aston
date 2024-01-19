@@ -1,7 +1,11 @@
 package aston.takushinov.map;
 
+import java.security.KeyStore;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +23,31 @@ public class MyHashMap<K, V> implements Map<K, V> {
             this.value = value;
             this.key = key;
             this.next = next;
+        }
+    }
+
+    private class Entry<K,V> implements Map.Entry<K, V> {
+        private K key;
+        private V value;
+
+        public Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public V setValue(V value) {
+            return this.value = value;
         }
     }
 
@@ -117,26 +146,55 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
+        for (Entry<K,V> entry : m.entrySet()) {
+            put(entry.getKey(), entry.getValue());
+        }
 
     }
 
     @Override
     public void clear() {
-
+        for (Object o : table) {
+            o=null;
+        }
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+        HashSet<K> result = new HashSet<>();
+        for (int i = 0; i < size - 1; i++) {
+            Node node = (Node)table[i];
+            while (node!=null) {
+                result.add(node.key);
+                node=node.next;
+            }
+        }
+        return result;
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        List<V> result = new ArrayList<>();
+        for (int i = 0; i < size - 1; i++) {
+            Node node = (Node)table[i];
+            while (node!=null) {
+                result.add(node.value);
+                node=node.next;
+            }
+        }
+        return result;
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
+        HashSet<Entry<K, V>> result = new HashSet<>();
+        for (int i = 0; i < size - 1; i++) {
+            Node node = (Node)table[i];
+            while (node!=null) {
+                result.add(new Entry(node.key, node.value));
+                node=node.next;
+            }
+        }
         return null;
     }
 
