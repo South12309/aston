@@ -6,6 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MyHashMapTest {
     MyHashMap<Integer, String> testMap = new MyHashMap<>();
 
@@ -68,10 +71,16 @@ public class MyHashMapTest {
 
     @Test
     public void keySet() {
+        Set<Integer> testLeySet = new HashSet<>();
+        for (int i = 0; i < 1000; i++) {
+            testLeySet.add(i);
+        }
+        Assert.assertEquals(testLeySet,testMap.keySet());
     }
 
     @Test
     public void values() {
+
     }
 
     @Test

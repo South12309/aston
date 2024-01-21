@@ -183,8 +183,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public Set<K> keySet() {
-        HashSet<K> result = new HashSet<>();
-        for (int i = 0; i < size - 1; i++) {
+        Set<K> result = new HashSet<>();
+        for (int i = 0; i < table.length; i++) {
             Node node = (Node)table[i];
             while (node!=null) {
                 result.add(node.key);
