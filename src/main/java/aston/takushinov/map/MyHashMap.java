@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Реализаци словаря. Для хранения пары ключ - значение используется массив в котором хранится односвязанный список
- * @param <K>
- * @param <V>
+ * Реализаци словаря. Для хранения пары ключ - значение используется массив в котором хранится односвязанный список.
+ * @param <K> - объект-ключ
+ * @param <V> - объект-значение
  */
 public class MyHashMap<K, V> implements Map<K, V> {
     private int M = 97;
@@ -35,8 +35,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Реализация записи пары ключ - значение для итерации
-     * @param <K>
-     * @param <V>
+     * @param <K> - объект-ключ
+     * @param <V> - объект-значение
      */
     public static class Entry<K,V> implements Map.Entry<K, V> {
         private K key;
@@ -65,7 +65,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Возвращает размер словаря
-     * @return
+     * @return цифровое значение размера
      */
     @Override
     public int size() {
@@ -81,8 +81,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Проверяет наличие ключа в словаре.
-     * @param key key whose presence in this map is to be tested
-     * @return
+     * @param key объект ключа, который надо проверить на наличии в словаре
+     * @return истина или ложь
      */
     @Override
     public boolean containsKey(Object key) {
@@ -102,8 +102,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Проверяет наличие значения в словаре
-     * @param value value whose presence in this map is to be tested
-     * @return
+     * @param value объект значения, который надо проверить на наличии в словаре
+     * @return истина или ложь
      */
     @Override
     public boolean containsValue(Object value) {
@@ -121,8 +121,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Возвращает значение по ключу.
-     * @param key the key whose associated value is to be returned
-     * @return
+     * @param key объект-ключ по которому будет получено значение из словаря.
+     * @return значение словаря по заданномку ключу
      */
     @Override
     public V get(Object key) {
@@ -138,9 +138,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Добавляет в словарь пару ключ - значение
-     * @param key key with which the specified value is to be associated
-     * @param value value to be associated with the specified key
-     * @return
+     * @param key объект-ключ
+     * @param value объект-значение
+     * @return вернет значение, если добавление будет успешным
      */
     @Override
     public V put(K key, V value) {
@@ -163,9 +163,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
     }
 
     /**
-     * Возвращает элемент списка с текущим ключом или последню элемент списка в данной ячейке массива, если ключ не найден.
-     * @param key
-     * @return
+     * Возвращает элемент списка с текущим ключом или последний элемент списка в данной ячейке массива, если ключ не найден.
+     * @param key ключ по которому проходит поиск
+     * @return Node с ключом или последняя Node в массиве из ячейки с индексом хэщ ключа
      */
     private Node getFindedOrLastNode(Object key) {
         Node node = (Node)table[hash((K)key)];
@@ -183,8 +183,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Удаляет элемент словаря по ключу
-     * @param key key whose mapping is to be removed from the map
-     * @return
+     * @param key ключ-объект по которому удаляется запись.
+     * @return значение удаленной записи из словаря
      */
     @Override
     public V remove(Object key) {
@@ -217,7 +217,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Добавляет в словарь содержимое другого словаря
-     * @param m mappings to be stored in this map
+     * @param m словарь из которого должны быть доавлены записи в текующий словарь.
      */
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
@@ -240,7 +240,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Возвращает множество ключей словаря.
-     * @return
+     * @return множество ключей словаря
      */
     @Override
     public Set<K> keySet() {
@@ -257,7 +257,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Возвращает коллекцию значений словаря
-     * @return
+     * @return коллекция значения словаря
      */
     @Override
     public Collection<V> values() {
@@ -274,7 +274,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Возвращает множество ключ-значение словаря
-     * @return
+     * @return множество ключ-значение словаря
      */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
@@ -291,8 +291,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     /**
      * Вычисляет хэш ключа.
-     * @param key
-     * @return
+     * @param key ключ по которому вычисляется хэш
+     * @return целое число являющееся хэшом ключа
      */
     private int hash(K key) { return (key.hashCode() & 0x7fffffff) % M; }
 }
