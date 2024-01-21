@@ -1,9 +1,7 @@
 package aston.takushinov.map;
 
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +61,18 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(Object key) {
-        return table[hash((K)key)]!=null;
+        int ind = hash((K) key);
+        Node node = (Node)table[ind];
+        if (node ==null){
+             return false;
+         }
+         while (node!=null) {
+             if (node.key.equals(key)) {
+                 return true;
+             }
+             node=node.next;
+         }
+         return false;
     }
 
     @Override
@@ -87,7 +96,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        if (containsKey(key)) {
+        int ind = hash((K) key);
+        Node nodeFirst = (Node)table[ind];
+        if (nodeFirst!=null) {
             Node node = getFindedOrLastNode(key);
             if (node.key.equals(key)) {
                 node.value = value;
@@ -146,7 +157,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        for (Entry<K,V> entry : m.entrySet()) {
+        for (Map.Entry<? extends K,? extends V> entry : m.entrySet()) {
             put(entry.getKey(), entry.getValue());
         }
 
@@ -186,8 +197,8 @@ public class MyHashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public Set<Entry<K, V>> entrySet() {
-        HashSet<Entry<K, V>> result = new HashSet<>();
+    public Set<Map.Entry<K, V>> entrySet() {
+        HashSet<Map.Entry<K, V>> result = new HashSet<>();
         for (int i = 0; i < size - 1; i++) {
             Node node = (Node)table[i];
             while (node!=null) {
