@@ -6,7 +6,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MyHashMapTest {
@@ -15,7 +19,7 @@ public class MyHashMapTest {
     @Before
     public void setUp() throws Exception {
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             testMap.put(i, i + "-ая строкая");
         }
     }
@@ -71,16 +75,24 @@ public class MyHashMapTest {
 
     @Test
     public void keySet() {
-        Set<Integer> testLeySet = new HashSet<>();
+        Set<Integer> testKeySet = new HashSet<>();
         for (int i = 0; i < 1000; i++) {
-            testLeySet.add(i);
+            testKeySet.add(i);
         }
-        Assert.assertEquals(testLeySet,testMap.keySet());
+        Assert.assertEquals(testKeySet,testMap.keySet());
     }
 
     @Test
     public void values() {
+        Collection<String> testValues = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            testValues.add(i + "-ая строкая");
+        }
 
+        List<String> valuesSorted = testMap.values().stream().sorted().toList();
+        List<String> testValuesSorted = testValues.stream().sorted().toList();
+
+        Assert.assertEquals(testValuesSorted, valuesSorted);
     }
 
     @Test

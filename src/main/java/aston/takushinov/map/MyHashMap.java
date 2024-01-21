@@ -197,7 +197,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
     @Override
     public Collection<V> values() {
         List<V> result = new ArrayList<>();
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < table.length; i++) {
             Node node = (Node)table[i];
             while (node!=null) {
                 result.add(node.value);
