@@ -77,9 +77,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsValue(Object value) {
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < table.length; i++) {
             Node node = (Node)table[i];
-            while (node.next!=null) {
+            while (node!=null) {
                 if (node.value.equals(value)) {
                     return true;
                 }
@@ -91,7 +91,14 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) {
-        return getFindedOrLastNode(key).value;
+        Node findedOrLastNode = getFindedOrLastNode(key);
+        if (findedOrLastNode==null) {
+            return null;
+        }
+        if (findedOrLastNode.key.equals(key)) {
+            return findedOrLastNode.value;
+        }
+        return null;
     }
 
     @Override
@@ -117,6 +124,9 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     private Node getFindedOrLastNode(Object key) {
         Node node = (Node)table[hash((K)key)];
+        if (node==null) {
+            return null;
+        }
         while (node.next!=null) {
             if (node.key.equals(key)) {
                return node;
@@ -165,9 +175,10 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public void clear() {
-        for (Object o : table) {
-            o=null;
+        for (int i = 0; i < table.length; i++) {
+            table[i]=null;
         }
+
     }
 
     @Override
