@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class MyHashMapTest {
@@ -19,7 +20,7 @@ public class MyHashMapTest {
     @Before
     public void setUp() throws Exception {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             testMap.put(i, i + "-ая строкая");
         }
     }
@@ -85,7 +86,7 @@ public class MyHashMapTest {
     @Test
     public void values() {
         Collection<String> testValues = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             testValues.add(i + "-ая строкая");
         }
 
@@ -97,5 +98,6 @@ public class MyHashMapTest {
 
     @Test
     public void entrySet() {
+
     }
 }

@@ -24,7 +24,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
         }
     }
 
-    private class Entry<K,V> implements Map.Entry<K, V> {
+    public static class Entry<K,V> implements Map.Entry<K, V> {
         private K key;
         private V value;
 
@@ -210,7 +210,7 @@ public class MyHashMap<K, V> implements Map<K, V> {
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
         HashSet<Map.Entry<K, V>> result = new HashSet<>();
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < table.length; i++) {
             Node node = (Node)table[i];
             while (node!=null) {
                 result.add(new Entry(node.key, node.value));
