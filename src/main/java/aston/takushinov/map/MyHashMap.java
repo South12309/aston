@@ -15,7 +15,7 @@ import java.util.Set;
  * @param <V> - объект-значение
  */
 public class MyHashMap<K, V> implements Map<K, V> {
-    private int CAPACITY = 97;
+    private final int CAPACITY = 97;
     private int size = 0;
     private Object[] table = new Object[CAPACITY];
 
