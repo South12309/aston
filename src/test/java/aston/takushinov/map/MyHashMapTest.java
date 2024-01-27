@@ -31,7 +31,7 @@ public class MyHashMapTest {
 
     @Test
     public void size() {
-        Assert.assertEquals(testMap.size(),1000);
+        Assert.assertEquals(testMap.size(), 1000);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class MyHashMapTest {
     @Test
     public void clear() {
         testMap.clear();
-        for (int i = 0; i <1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             Assert.assertNull(testMap.get(i));
         }
     }
@@ -80,7 +80,7 @@ public class MyHashMapTest {
         for (int i = 0; i < 1000; i++) {
             testKeySet.add(i);
         }
-        Assert.assertEquals(testKeySet,testMap.keySet());
+        Assert.assertEquals(testKeySet, testMap.keySet());
     }
 
     @Test
@@ -98,6 +98,14 @@ public class MyHashMapTest {
 
     @Test
     public void entrySet() {
-
+        HashSet<Map.Entry<Integer, String>> resultTest = new HashSet<>();
+        for (int i = 0; i < testMap.size(); i++) {
+            resultTest.add(new MyHashMap.Entry(i, i + "-ая строкая"));
+        }
+        HashSet<Map.Entry<Integer, String>> result = new HashSet<>();
+        for (int i = 0; i < testMap.size(); i++) {
+            result.add(new MyHashMap.Entry(i, testMap.get(i)));
+        }
+        Assert.assertEquals(resultTest, result);
     }
 }
