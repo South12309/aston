@@ -13,9 +13,9 @@ import java.util.Set;
  * @param <V> - объект-значение
  */
 public class MyHashMap<K, V> implements Map<K, V> {
-    private int M = 97;
+    private int CAPACITY = 97;
     private int size = 0;
-    private Object[] table = new Object[M];
+    private Object[] table = new Object[CAPACITY];
 
     /**
      * Односвязанный список, который хранится в массиве.
@@ -294,5 +294,5 @@ public class MyHashMap<K, V> implements Map<K, V> {
      * @param key ключ по которому вычисляется хэш
      * @return целое число являющееся хэшом ключа
      */
-    private int hash(K key) { return (key.hashCode() & 0x7fffffff) % M; }
+    private int hash(K key) { return (key.hashCode() & 0x7fffffff) % CAPACITY; }
 }
